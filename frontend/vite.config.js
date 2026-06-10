@@ -1,14 +1,22 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    host: true, // allows external connections
-    allowedHosts: true, // allows ngrok domains (for newer vite)
-    proxy: {
-      '/api': 'http://localhost:5000'
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const backendTarget = env.VITE_BACKEND_URL || env.PUBLIC_BASE_URL || 'http://localhost:5000';
+
+  return {
+    plugins: [react()],
+    server: {
+      port: 5173,
+      host: true, // Enables LAN IP binding for mobile phone testing
+      proxy: {
+        '/api': {
+          target: backendTarget,
+          changeOrigin: true,
+          secure: false
+        }
+      }
     }
-  }
-})
+  };
+});
