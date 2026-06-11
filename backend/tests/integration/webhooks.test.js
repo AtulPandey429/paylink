@@ -145,4 +145,44 @@ describe('Webhook Processing & Idempotency Tests', () => {
     const txCount = await PaymentTransaction.countDocuments({ paymentLinkId: linkId });
     expect(txCount).toBe(1);
   });
+
+  test('POST /api/webhooks auto-detects demo provider via header and processes payment', async () => {
+    const payload = {
+      eventId: 'evt_unified_101',
+      eventType: 'payment.captured',
+      paymentLinkId: linkId,
+      status: 'paid',
+      amount: 80.00,
+      currency: 'USD',
+      paymentId: 'pay_unified_101'
+    };
+
+    const signature = demoProvider.signPayload(payload);
+
+    const res = await request(app)
+      .post('/api/webhooks')
+      .set('x-demo-signature', signature)
+      .send(payload);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.gateway).toBe('demo');
+    expect(res.body.status).toBe('paid');
+
+    const updatedLink = await PaymentLink.findById(linkId);
+    expect(updatedLink.status).toBe('paid');
+  });
+
+  test('POST /api/webhooks rejects request when gateway cannot be detected', async () => {
+    const payload = {
+      unrecognized: 'data'
+    };
+
+    const res = await request(app)
+      .post('/api/webhooks')
+      .send(payload);
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.success).toBe(false);
+  });
 });
+

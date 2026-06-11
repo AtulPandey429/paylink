@@ -46,6 +46,7 @@ const getSettings = asyncHandler(async (req, res) => {
     data: {
       environment: config.env,
       publicBaseUrl: config.publicBaseUrl,
+      unifiedWebhookUrl: `${baseUrl}/api/webhooks`,
       demoModeEnabled: config.demoMode.enabled,
       gateways: enrichedGateways,
       systemStatus: 'healthy',
