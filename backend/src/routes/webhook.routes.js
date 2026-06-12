@@ -5,12 +5,11 @@ const { webhookLimiter } = require('../middleware/rateLimiter');
 
 router.use(webhookLimiter);
 
-// Single unified webhook endpoint for all gateways (auto-detects Razorpay, Stripe, Cashfree, Demo)
+// Unified webhook endpoints supporting both:
+// 1. Parameterized: POST /api/webhooks/:platform (e.g. /api/webhooks/razorpay, /api/webhooks/stripe, /api/webhooks/cashfree)
+// 2. Query param: POST /api/webhooks?platform=razorpay
+// 3. Auto-detected single endpoint: POST /api/webhooks
 router.post('/', webhookController.handleUnifiedWebhook);
-
-router.post('/stripe', webhookController.handleStripeWebhook);
-router.post('/razorpay', webhookController.handleRazorpayWebhook);
-router.post('/cashfree', webhookController.handleCashfreeWebhook);
-router.post('/demo', webhookController.handleDemoWebhook);
+router.post('/:platform', webhookController.handleUnifiedWebhook);
 
 module.exports = router;

@@ -6,8 +6,14 @@ const AppError = require('../utils/AppError');
  * Automatically detects payment gateway from request headers, query params, or payload structure.
  */
 function detectGateway(req) {
-  // 1. Explicit query or body override (?gateway=razorpay or ?provider=stripe)
-  const explicit = req.query?.gateway || req.query?.provider || req.body?.gateway || req.body?.provider;
+  // 1. Explicit route parameter (:platform or :gateway e.g. /api/webhooks/:platform)
+  const routeParam = req.params?.platform || req.params?.gateway;
+  if (routeParam && ['razorpay', 'stripe', 'cashfree', 'demo'].includes(String(routeParam).toLowerCase())) {
+    return String(routeParam).toLowerCase();
+  }
+
+  // 2. Explicit query or body parameter (?platform=... or ?gateway=... or ?provider=...)
+  const explicit = req.query?.platform || req.query?.gateway || req.query?.provider || req.body?.platform || req.body?.gateway || req.body?.provider;
   if (explicit && ['razorpay', 'stripe', 'cashfree', 'demo'].includes(String(explicit).toLowerCase())) {
     return String(explicit).toLowerCase();
   }
