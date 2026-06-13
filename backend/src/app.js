@@ -73,6 +73,17 @@ app.use(express.urlencoded({
   }
 }));
 
+// Root status endpoint
+app.get('/', (req, res) => {
+  res.json({
+    name: 'PayLink API',
+    status: 'online',
+    version: '1.0.0',
+    documentation: '/api',
+    health: '/health'
+  });
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({
