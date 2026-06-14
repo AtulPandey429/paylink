@@ -13,8 +13,8 @@ const normalizeUrl = (url, fallback) => {
 };
 
 const config = {
-  // Base URL for backend API requests (defaults to Vite proxy '/api')
-  apiBaseUrl: normalizeUrl(import.meta.env.VITE_API_BASE_URL, '/api'),
+  // Base URL for backend API requests (defaults to live Render backend)
+  apiBaseUrl: normalizeUrl(import.meta.env.VITE_API_BASE_URL, 'https://upi-pay.onrender.com/api'),
 
   // Public client origin URL
   clientUrl: typeof window !== 'undefined'
