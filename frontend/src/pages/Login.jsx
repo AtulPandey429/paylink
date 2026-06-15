@@ -52,24 +52,8 @@ export default function Login() {
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#0A0F1D',
-      padding: '1.5rem',
-      backgroundImage: 'radial-gradient(ellipse at 50% -20%, #1E1B4B 0%, #0A0F1D 80%)'
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '440px',
-        backgroundColor: '#111827',
-        border: '1px solid #1F2937',
-        borderRadius: '16px',
-        padding: '2.5rem 2rem',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
-      }}>
+    <div className="auth-page-container">
+      <div className="auth-card">
         {/* Brand Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{

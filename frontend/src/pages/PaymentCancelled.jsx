@@ -7,25 +7,14 @@ export default function PaymentCancelled() {
   const linkId = searchParams.get('linkId');
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#0A0F1D',
-      padding: '2rem 1rem',
-      backgroundImage: 'radial-gradient(ellipse at 50% -20%, #7F1D1D 0%, #0A0F1D 70%)'
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '480px',
-        backgroundColor: '#111827',
-        border: '1px solid #DC262640',
-        borderRadius: '20px',
-        padding: '2.5rem 2rem',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
-        textAlign: 'center'
-      }}>
+    <div className="auth-page-container">
+      <div 
+        className="checkout-card"
+        style={{
+          border: '1px solid #DC262640',
+          textAlign: 'center'
+        }}
+      >
         {/* Cancelled Icon */}
         <div style={{
           width: '64px',

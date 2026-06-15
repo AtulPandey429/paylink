@@ -147,8 +147,8 @@ export default function PaymentLinksList() {
 
       {/* Filter and Search Bar */}
       <div className="card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
-        <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <div style={{ flex: '1 1 240px', position: 'relative' }}>
+        <form onSubmit={handleSearchSubmit} className="filters-form">
+          <div className="filter-item-search" style={{ position: 'relative' }}>
             <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
             <input
               type="text"
@@ -160,7 +160,7 @@ export default function PaymentLinksList() {
             />
           </div>
 
-          <div style={{ flex: '0 1 150px' }}>
+          <div className="filter-item-select">
             <select className="form-select" value={gateway} onChange={(e) => { setGateway(e.target.value); setPage(1); }}>
               <option value="all">All Gateways</option>
               <option value="stripe">Stripe</option>
@@ -170,7 +170,7 @@ export default function PaymentLinksList() {
             </select>
           </div>
 
-          <div style={{ flex: '0 1 150px' }}>
+          <div className="filter-item-select">
             <select className="form-select" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
               <option value="all">All Statuses</option>
               <option value="pending">Pending</option>
@@ -180,7 +180,7 @@ export default function PaymentLinksList() {
             </select>
           </div>
 
-          <div style={{ flex: '0 1 160px' }}>
+          <div className="filter-item-select">
             <select className="form-select" value={`${sortBy}_${sortOrder}`} onChange={(e) => {
               const [f, o] = e.target.value.split('_');
               setSortBy(f);
@@ -193,7 +193,7 @@ export default function PaymentLinksList() {
             </select>
           </div>
 
-          <button type="submit" className="btn btn-secondary">
+          <button type="submit" className="btn btn-secondary filter-submit-btn">
             <Filter size={14} /> Filter
           </button>
         </form>
@@ -337,7 +337,7 @@ export default function PaymentLinksList() {
         </div>
 
         {/* Pagination Bar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 1.5rem', background: 'var(--bg-subtle)', borderTop: '1px solid var(--border-light)' }}>
+        <div className="pagination-bar">
           <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>
             Showing {links.length} of {total} payment links
           </span>

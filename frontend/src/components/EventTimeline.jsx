@@ -63,7 +63,7 @@ export default function EventTimeline({ auditLogs = [] }) {
         return (
           <div key={log._id} className="timeline-item">
             <div className="timeline-dot" style={{ borderColor: config.color }} />
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.25rem' }}>
               <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Icon size={14} color={config.color} />
                 {config.label}

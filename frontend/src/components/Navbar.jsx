@@ -8,9 +8,7 @@ export default function Navbar({ title, onToggleSidebar }) {
       <div className="topbar-left">
         <button
           onClick={onToggleSidebar}
-          className="btn btn-ghost"
-          style={{ padding: '0.4rem', display: 'none' }}
-          id="mobile-menu-btn"
+          className="btn btn-ghost btn-mobile-menu"
           aria-label="Toggle Navigation"
         >
           <Menu size={20} />
@@ -18,28 +16,15 @@ export default function Navbar({ title, onToggleSidebar }) {
         <h1 className="page-title">{title}</h1>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            padding: '0.35rem 0.75rem',
-            borderRadius: '9999px',
-            backgroundColor: 'rgba(245, 158, 11, 0.15)',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
-            color: '#FCD34D',
-            fontSize: '0.78rem',
-            fontWeight: 600
-          }}
-        >
-          <Sparkles size={12} />
-          Sandbox / Demo Mode
+      <div className="topbar-right">
+        <div className="topbar-sandbox-badge">
+          <Sparkles size={12} className="badge-icon" />
+          <span className="badge-label">Sandbox Mode</span>
         </div>
 
-        <Link to="/links/create" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+        <Link to="/links/create" className="btn btn-primary topbar-create-btn">
           <Plus size={16} />
-          Create Link
+          <span className="btn-text">Create Link</span>
         </Link>
       </div>
     </header>

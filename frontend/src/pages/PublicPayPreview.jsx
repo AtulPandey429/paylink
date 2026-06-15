@@ -93,8 +93,8 @@ export default function PublicPayPreview() {
   const upiIntentUrl = `upi://pay?pa=paylink.merchant@icici&pn=PayLink%20Merchant&am=${Number(link.amount).toFixed(2)}&cu=INR&tn=${encodeURIComponent(link.title || 'Payment')}&tr=${link._id}`;
 
   return (
-    <div style={{ minHeight: '100vh', background: 'radial-gradient(ellipse at top, #1E1B4B 0%, #0B0F17 70%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-      <div style={{ width: '100%', maxWidth: '480px', background: '#131B2E', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '20px', padding: '2rem', boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)' }}>
+    <div className="auth-page-container">
+      <div className="checkout-card">
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -188,7 +188,7 @@ export default function PublicPayPreview() {
               This checkout link is running in sandbox/simulation mode. Click below to simulate an authenticated customer payment or rejection. A cryptographically signed webhook will be dispatched to the backend.
             </p>
 
-            <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <div className="checkout-simulator-actions">
               <button
                 onClick={() => handleSimulatePayment('success')}
                 disabled={actionLoading || isAlreadyPaid}

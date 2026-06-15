@@ -4,7 +4,7 @@ import GatewayBadge from './GatewayBadge';
 
 export default function LivePreviewCard({ selectedGateway, title, amount, currency, customerName, customerEmail }) {
   return (
-    <aside style={{ position: 'sticky', top: '90px' }}>
+    <aside className="live-preview-aside" style={{ position: 'sticky', top: '90px' }}>
       <div className="card" style={{ background: 'linear-gradient(145deg, #18223B, #131B2E)', border: '1px solid rgba(99, 102, 241, 0.3)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
           <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#A5B4FC', fontWeight: 700 }}>

@@ -54,6 +54,11 @@ function ProtectedLayout() {
   return (
     <div className="app-layout">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <div 
+        className={`sidebar-backdrop ${sidebarOpen ? 'active' : ''}`} 
+        onClick={() => setSidebarOpen(false)} 
+        aria-hidden="true"
+      />
       <div className="main-content">
         <Navbar 
           title={getPageTitle(location.pathname)} 

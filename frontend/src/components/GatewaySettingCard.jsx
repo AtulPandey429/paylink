@@ -80,28 +80,28 @@ export default function GatewaySettingCard({
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.85rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
             <span style={{ color: '#94A3B8' }}>API Key:</span>
-            <span style={{ fontFamily: 'monospace', color: '#CBD5E1', backgroundColor: '#0F172A', padding: '2px 6px', borderRadius: '4px' }}>
+            <span style={{ fontFamily: 'monospace', color: '#CBD5E1', backgroundColor: '#0F172A', padding: '2px 6px', borderRadius: '4px', wordBreak: 'break-all', maxWidth: '100%' }}>
               {maskedKey}
             </span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
             <span style={{ color: '#94A3B8' }}>Webhook Secret:</span>
             <span style={{ color: hasWebhookSecret ? '#10B981' : '#F59E0B', fontWeight: 600 }}>
               {hasWebhookSecret ? 'Verified Active' : 'Fallback Simulator'}
             </span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
             <span style={{ color: '#94A3B8' }}>Currencies:</span>
-            <span style={{ color: '#CBD5E1' }}>{currencies}</span>
+            <span style={{ color: '#CBD5E1', textAlign: 'right' }}>{currencies}</span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem', borderBottom: '1px solid #334155', paddingBottom: '0.5rem' }}>
             <span style={{ color: '#94A3B8' }}>Features:</span>
-            <span style={{ color: '#CBD5E1' }}>{features}</span>
+            <span style={{ color: '#CBD5E1', textAlign: 'right' }}>{features}</span>
           </div>
         </div>
 

@@ -139,12 +139,12 @@ export default function PaymentLinkDetail() {
             <ArrowLeft size={20} />
           </button>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>{link.title}</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, wordBreak: 'break-word' }}>{link.title}</h2>
               <StatusBadge status={link.status} />
               <GatewayBadge gateway={link.gateway} isDemo={link.isDemo} />
             </div>
-            <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)', marginTop: '0.2rem' }}>
+            <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)', marginTop: '0.2rem', wordBreak: 'break-all' }}>
               Gateway Link ID: {link.gatewayLinkId}
             </div>
           </div>
@@ -208,13 +208,13 @@ export default function PaymentLinkDetail() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)', gap: '2rem', alignItems: 'flex-start' }}>
+      <div className="link-detail-grid">
         {/* Left Column: Link Metadata & Payment Details */}
         <div>
           <div className="card">
             <h3 className="card-title" style={{ marginBottom: '1.25rem' }}>Payment Link Summary</h3>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+            <div className="form-row-2col" style={{ gap: '1.25rem' }}>
               <div>
                 <span style={{ fontSize: '0.78rem', color: 'var(--text-dim)' }}>Amount</span>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: 'white', marginTop: '0.2rem' }}>
@@ -270,14 +270,14 @@ export default function PaymentLinkDetail() {
               <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
                 <User size={14} /> Customer Information
               </span>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', fontSize: '0.88rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem', fontSize: '0.88rem' }}>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Name</span>
-                  <div style={{ fontWeight: 600 }}>{link.customer?.name || 'Not provided'}</div>
+                  <div style={{ fontWeight: 600, wordBreak: 'break-word' }}>{link.customer?.name || 'Not provided'}</div>
                 </div>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Email</span>
-                  <div style={{ fontWeight: 600 }}>{link.customer?.email || 'Not provided'}</div>
+                  <div style={{ fontWeight: 600, wordBreak: 'break-all' }}>{link.customer?.email || 'Not provided'}</div>
                 </div>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Phone</span>
@@ -290,24 +290,24 @@ export default function PaymentLinkDetail() {
           {/* Captured Payment Transaction Box (if paid) */}
           {transactions.length > 0 && (
             <div className="card">
-              <h3 className="card-title" style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <h3 className="card-title" style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <CreditCard size={18} color="#10B981" /> Captured Transaction Record
               </h3>
               {transactions.map((tx) => (
                 <div key={tx._id} style={{ background: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', padding: '1rem', border: '1px solid var(--border-light)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.5rem' }}>
                     <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>Gateway Payment ID</span>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: 600, color: '#A5B4FC' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: 600, color: '#A5B4FC', wordBreak: 'break-all' }}>
                       {tx.gatewayPaymentId}
                     </span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.5rem' }}>
                     <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>Payment Method</span>
                     <span style={{ fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase' }}>
                       {tx.paymentMethod || 'Card / UPI'}
                     </span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.25rem' }}>
                     <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>Captured Time</span>
                     <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                       {new Date(tx.createdAt).toLocaleString()}

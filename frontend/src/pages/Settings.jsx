@@ -186,7 +186,7 @@ export default function Settings() {
           Payment Gateway Providers
         </h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem' }}>
+        <div className="gateway-settings-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.5rem' }}>
           
           {/* STRIPE */}
           <GatewaySettingCard
@@ -266,7 +266,7 @@ export default function Settings() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', fontSize: '0.875rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1.25rem', fontSize: '0.875rem' }}>
           
           <div style={{ backgroundColor: '#0F172A', padding: '1rem', borderRadius: '8px', border: '1px solid #334155' }}>
             <div style={{ fontWeight: 600, color: '#F8FAFC', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.4rem' }}>

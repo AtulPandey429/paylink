@@ -149,7 +149,7 @@ export default function CreatePaymentLink() {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 360px', gap: '2rem', alignItems: 'flex-start' }}>
+      <div className="create-link-grid">
         {/* Form Container */}
         <form onSubmit={handleSubmit} className="card">
           {/* Gateway Selector Cards */}
@@ -178,7 +178,7 @@ export default function CreatePaymentLink() {
           </div>
 
           {/* Amount & Currency */}
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
+          <div className="form-row-2col">
             <div className="form-group">
               <label className="form-label" htmlFor="amount">3. Amount *</label>
               <input
@@ -216,7 +216,7 @@ export default function CreatePaymentLink() {
               4. Customer Details (Optional)
             </span>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+            <div className="form-row-responsive">
               <div className="form-group">
                 <label className="form-label" htmlFor="customerName">Full Name</label>
                 <input

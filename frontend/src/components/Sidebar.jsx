@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Link2, PlusCircle, Settings, LogOut, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Link2, PlusCircle, Settings, LogOut, ShieldCheck, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -9,15 +9,25 @@ export default function Sidebar({ isOpen, onClose }) {
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
-        <div className="brand-icon">
-          <Link2 size={20} />
-        </div>
-        <div>
-          <span className="brand-title">PayLink</span>
-          <div style={{ fontSize: '0.68rem', color: '#818CF8', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '3px' }}>
-            <ShieldCheck size={11} /> Multi-Gateway
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
+          <div className="brand-icon">
+            <Link2 size={20} />
+          </div>
+          <div>
+            <span className="brand-title">PayLink</span>
+            <div style={{ fontSize: '0.68rem', color: '#818CF8', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '3px' }}>
+              <ShieldCheck size={11} /> Multi-Gateway
+            </div>
           </div>
         </div>
+
+        <button
+          onClick={onClose}
+          className="btn-sidebar-close"
+          aria-label="Close sidebar navigation"
+        >
+          <X size={18} />
+        </button>
       </div>
 
       <nav className="sidebar-nav">

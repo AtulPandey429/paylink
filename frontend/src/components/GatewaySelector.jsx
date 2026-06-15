@@ -3,7 +3,7 @@ import { Check } from 'lucide-react';
 
 export default function GatewaySelector({ specs, selectedGateway, onSelectGateway }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.85rem' }}>
+    <div className="gateway-selector-grid">
       {specs.map((gw) => {
         const Icon = gw.icon;
         const isSelected = selectedGateway === gw.id;

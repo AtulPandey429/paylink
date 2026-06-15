@@ -167,7 +167,7 @@ export default function Dashboard() {
           <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>Real-time aggregated volume</span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+        <div className="gateway-breakdown-grid">
           {gatewayBreakdown.map((gw) => (
             <div
               key={gw.gateway}
@@ -188,7 +188,7 @@ export default function Dashboard() {
                 </span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginTop: '0.25rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.35rem', marginTop: '0.25rem' }}>
                 <span style={{ fontSize: '1.35rem', fontWeight: 800 }}>
                   {getGatewayCurrencySymbol(gw.gateway)}{gw.paidAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </span>
