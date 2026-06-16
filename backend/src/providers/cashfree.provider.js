@@ -173,17 +173,18 @@ class CashfreeProvider extends BaseProvider {
       const data = event.data || event;
       const linkDetails = data.link_details || data.order || {};
 
-      let paymentLinkId = linkDetails.link_id;
+      let gatewayLinkId = linkDetails.link_id || data.link_id || data.order?.order_id;
+      let paymentLinkId = gatewayLinkId;
       let status = 'pending';
-      let amount = Number(data.payment?.payment_amount || linkDetails.link_amount || 0);
-      let currency = linkDetails.link_currency || 'INR';
-      let paymentId = data.payment?.cf_payment_id || data.payment?.payment_id || linkDetails.link_id;
+      let amount = Number(data.payment?.payment_amount || linkDetails.link_amount || data.order?.order_amount || 0);
+      let currency = linkDetails.link_currency || data.order?.order_currency || 'INR';
+      let paymentId = data.payment?.cf_payment_id || data.payment?.payment_id || gatewayLinkId;
 
       if (eventType.includes('PAID') || eventType.includes('SUCCESS') || linkDetails.link_status === 'PAID') {
         status = 'paid';
       } else if (eventType.includes('FAILED') || linkDetails.link_status === 'FAILED') {
         status = 'failed';
-      } else if (eventType.includes('CANCELLED')) {
+      } else if (eventType.includes('CANCELLED') || eventType.includes('DROPPED')) {
         status = 'cancelled';
       }
 
@@ -195,7 +196,7 @@ class CashfreeProvider extends BaseProvider {
         eventId,
         eventType,
         paymentLinkId,
-        gatewayLinkId: linkDetails.link_id,
+        gatewayLinkId,
         status,
         amount,
         currency,
