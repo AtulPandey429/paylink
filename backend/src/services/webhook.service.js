@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const PaymentLink = require('../models/PaymentLink');
 const PaymentTransaction = require('../models/PaymentTransaction');
 const WebhookEvent = require('../models/WebhookEvent');
@@ -45,13 +46,29 @@ async function handleWebhook(gateway, headers, rawBody) {
   }
 
   try {
-    // 3. Locate matching payment link
+    // 3. Locate matching payment link safely without CastError
     let link = null;
-    if (paymentLinkId) {
+    if (paymentLinkId && mongoose.Types.ObjectId.isValid(paymentLinkId)) {
       link = await PaymentLink.findById(paymentLinkId);
     }
     if (!link && gatewayLinkId) {
       link = await PaymentLink.findOne({ gatewayLinkId });
+    }
+    // Also try extracting Mongo ObjectId from plink_<mongoId>_<suffix> format
+    if (!link && gatewayLinkId && gatewayLinkId.startsWith('plink_')) {
+      const parts = gatewayLinkId.split('_');
+      if (parts[1] && mongoose.Types.ObjectId.isValid(parts[1])) {
+        link = await PaymentLink.findById(parts[1]);
+      }
+    }
+    // Fallback: search by gateway payment URL or paymentDetails
+    if (!link && gatewayLinkId) {
+      link = await PaymentLink.findOne({
+        $or: [
+          { 'paymentDetails.paymentId': gatewayLinkId },
+          { gatewayPaymentUrl: { $regex: gatewayLinkId, $options: 'i' } }
+        ]
+      });
     }
 
     if (!link) {

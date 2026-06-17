@@ -9,6 +9,9 @@ const notFoundHandler = require('./middleware/notFound');
 
 const app = express();
 
+// Enable trust proxy for Render / Vercel load balancers (fixes X-Forwarded-For rate limit error)
+app.set('trust proxy', 1);
+
 // Security HTTP headers
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' }

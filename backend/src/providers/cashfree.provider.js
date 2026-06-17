@@ -171,13 +171,30 @@ class CashfreeProvider extends BaseProvider {
       const event = JSON.parse(bodyStr);
       const eventType = event.type || event.event || 'PAYMENT_LINK_EVENT';
       const data = event.data || event;
-      const linkDetails = data.link_details || data.order || {};
+      const linkDetails = data.link_details || {};
+      const order = data.order || {};
+      const orderTags = order.order_tags || {};
 
-      let gatewayLinkId = linkDetails.link_id || data.link_id || data.order?.order_id;
-      let paymentLinkId = gatewayLinkId;
+      // Cashfree payment links store link_id in order.order_tags.link_id, link_details.link_id, or data.link_id
+      const gatewayLinkId =
+        orderTags.link_id ||
+        linkDetails.link_id ||
+        data.link_id ||
+        order.order_id ||
+        null;
+
+      // Extract Mongo ObjectId if format is plink_<mongoId>_<suffix>
+      let paymentLinkId = null;
+      if (gatewayLinkId && gatewayLinkId.startsWith('plink_')) {
+        const parts = gatewayLinkId.split('_');
+        if (parts[1] && /^[0-9a-fA-F]{24}$/.test(parts[1])) {
+          paymentLinkId = parts[1];
+        }
+      }
+
       let status = 'pending';
-      let amount = Number(data.payment?.payment_amount || linkDetails.link_amount || data.order?.order_amount || 0);
-      let currency = linkDetails.link_currency || data.order?.order_currency || 'INR';
+      let amount = Number(data.payment?.payment_amount || linkDetails.link_amount || order.order_amount || 0);
+      let currency = linkDetails.link_currency || order.order_currency || 'INR';
       let paymentId = data.payment?.cf_payment_id || data.payment?.payment_id || gatewayLinkId;
 
       if (eventType.includes('PAID') || eventType.includes('SUCCESS') || linkDetails.link_status === 'PAID') {
