@@ -53,7 +53,7 @@ export default function Login() {
 
   return (
     <div className="auth-page-container">
-      <div className="auth-card">
+      <div className="auth-card" style={{ boxShadow: 'var(--shadow-card), 0 25px 60px -15px rgba(0, 0, 0, 0.8)' }}>
         {/* Brand Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
@@ -63,26 +63,26 @@ export default function Login() {
             width: '48px',
             height: '48px',
             borderRadius: '12px',
-            backgroundColor: '#4F46E5',
+            background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
             color: '#FFFFFF',
             marginBottom: '1rem',
-            boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)'
+            boxShadow: '0 0 25px rgba(99, 102, 241, 0.45)'
           }}>
-            <Link2 size={26} />
+            <Link2 size={26} strokeWidth={2.5} />
           </div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#F9FAFB', margin: 0, letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
             PayLink
           </h1>
-          <p style={{ color: '#9CA3AF', fontSize: '0.875rem', marginTop: '0.35rem' }}>
-            Secure Multi-Gateway Payment Orchestration
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginTop: '0.35rem' }}>
+            Multi-Gateway Payment Orchestration Platform
           </p>
         </div>
 
         {/* Demo Fast-Login Pill */}
         <div style={{
-          backgroundColor: '#1E1B4B',
-          border: '1px solid #3730A3',
-          borderRadius: '10px',
+          backgroundColor: 'rgba(99, 102, 241, 0.1)',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+          borderRadius: 'var(--radius-md)',
           padding: '0.875rem 1rem',
           marginBottom: '1.5rem',
           display: 'flex',
@@ -91,10 +91,10 @@ export default function Login() {
           gap: '0.5rem'
         }}>
           <div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#A5B4FC', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#A5B4FC', display: 'flex', alignItems: 'center', gap: '5px' }}>
               <Sparkles size={14} /> Quick Demo Access
             </div>
-            <div style={{ fontSize: '0.75rem', color: '#818CF8' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
               Instant login with test credentials
             </div>
           </div>
@@ -103,7 +103,7 @@ export default function Login() {
             onClick={handleDemoLogin}
             disabled={loading}
             className="btn btn-primary"
-            style={{ padding: '0.4rem 0.75rem', fontSize: '0.78rem' }}
+            style={{ padding: '0.4rem 0.85rem', fontSize: '0.78rem' }}
           >
             1-Click Login
           </button>
@@ -111,11 +111,11 @@ export default function Login() {
 
         {error && (
           <div style={{
-            backgroundColor: '#7F1D1D30',
-            border: '1px solid #DC2626',
+            backgroundColor: 'var(--danger-light)',
+            border: '1px solid rgba(244, 63, 94, 0.4)',
             color: '#FCA5A5',
             padding: '0.75rem 1rem',
-            borderRadius: '8px',
+            borderRadius: 'var(--radius-md)',
             fontSize: '0.82rem',
             marginBottom: '1.25rem',
             display: 'flex',
@@ -130,36 +130,36 @@ export default function Login() {
         {/* Login Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#E5E7EB', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Merchant Email
             </label>
             <div style={{ position: 'relative' }}>
-              <Mail size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#6B7280' }} />
+              <Mail size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="merchant@example.com"
-                className="input-field"
+                placeholder="merchant@paylink.dev"
+                className="form-input"
                 style={{ paddingLeft: '2.5rem' }}
               />
             </div>
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#E5E7EB', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Password
             </label>
             <div style={{ position: 'relative' }}>
-              <Lock size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#6B7280' }} />
+              <Lock size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="input-field"
+                className="form-input"
                 style={{ paddingLeft: '2.5rem' }}
               />
             </div>
@@ -173,13 +173,14 @@ export default function Login() {
           >
             {loading ? 'Authenticating...' : (
               <>
-                Sign In to Dashboard <ArrowRight size={16} />
+                <span>Sign In to Dashboard</span>
+                <ArrowRight size={16} />
               </>
             )}
           </button>
         </form>
 
-        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#9CA3AF' }}>
+        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
           Don't have an account?{' '}
           <Link to="/register" style={{ color: '#818CF8', fontWeight: 600, textDecoration: 'none' }}>
             Create one
@@ -190,18 +191,19 @@ export default function Login() {
         <div style={{
           marginTop: '2rem',
           paddingTop: '1rem',
-          borderTop: '1px solid #1F2937',
+          borderTop: '1px solid var(--border-light)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '6px',
-          color: '#6B7280',
+          color: 'var(--text-dim)',
           fontSize: '0.75rem'
         }}>
           <ShieldCheck size={14} style={{ color: '#10B981' }} />
-          <span>Strict Tenant Isolation • HMAC-SHA256 Webhooks</span>
+          <span>Strict Tenant Isolation • HMAC-SHA256 Signed Webhooks</span>
         </div>
       </div>
     </div>
   );
 }
+

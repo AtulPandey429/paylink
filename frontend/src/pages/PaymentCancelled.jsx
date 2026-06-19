@@ -11,41 +11,44 @@ export default function PaymentCancelled() {
       <div 
         className="checkout-card"
         style={{
-          border: '1px solid #DC262640',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid rgba(244, 63, 94, 0.4)',
+          boxShadow: 'var(--shadow-lg), 0 20px 40px -15px rgba(0, 0, 0, 0.8)',
           textAlign: 'center'
         }}
       >
         {/* Cancelled Icon */}
         <div style={{
-          width: '64px',
-          height: '64px',
+          width: '68px',
+          height: '68px',
           borderRadius: '50%',
-          backgroundColor: '#EF444420',
-          color: '#EF4444',
+          backgroundColor: 'rgba(244, 63, 94, 0.15)',
+          color: '#F43F5E',
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '1.25rem',
-          boxShadow: '0 0 25px rgba(239, 68, 68, 0.3)'
+          boxShadow: '0 0 30px rgba(244, 63, 94, 0.35)'
         }}>
-          <XCircle size={36} />
+          <XCircle size={36} strokeWidth={2.2} />
         </div>
 
-        <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#F9FAFB', margin: 0, letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
           Payment Cancelled
         </h1>
-        <p style={{ color: '#9CA3AF', fontSize: '0.9rem', marginTop: '0.4rem' }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginTop: '0.4rem', lineHeight: 1.5 }}>
           The checkout session was cancelled or timed out. No charges were made to your account.
         </p>
 
         <div style={{
-          backgroundColor: '#1F2937',
-          borderRadius: '12px',
-          border: '1px solid #374151',
-          padding: '1rem',
+          backgroundColor: 'var(--bg-subtle)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid var(--border-light)',
+          padding: '1.15rem',
           margin: '1.75rem 0',
-          color: '#9CA3AF',
-          fontSize: '0.85rem'
+          color: 'var(--text-dim)',
+          fontSize: '0.85rem',
+          lineHeight: 1.45
         }}>
           You can retry this payment using the button below or contact the merchant for an updated payment link.
         </div>
@@ -73,18 +76,19 @@ export default function PaymentCancelled() {
         <div style={{
           marginTop: '1.5rem',
           paddingTop: '1rem',
-          borderTop: '1px solid #1F2937',
+          borderTop: '1px solid var(--border-light)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '6px',
-          color: '#6B7280',
+          color: 'var(--text-dim)',
           fontSize: '0.75rem'
         }}>
-          <ShieldCheck size={14} style={{ color: '#9CA3AF' }} />
+          <ShieldCheck size={14} style={{ color: 'var(--text-muted)' }} />
           <span>PayLink Secure Payment Orchestration</span>
         </div>
       </div>
     </div>
   );
 }
+

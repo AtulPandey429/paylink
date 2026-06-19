@@ -93,35 +93,37 @@ export default function PaymentSuccess() {
       <div 
         className="checkout-card"
         style={{
-          border: `1px solid ${isPaid ? '#05966940' : isPending ? '#D9770640' : '#DC262640'}`,
+          backgroundColor: 'var(--bg-card)',
+          border: `1px solid ${isPaid ? 'rgba(16, 185, 129, 0.4)' : isPending ? 'rgba(245, 158, 11, 0.4)' : 'rgba(244, 63, 94, 0.4)'}`,
+          boxShadow: 'var(--shadow-lg), 0 20px 40px -15px rgba(0, 0, 0, 0.8)',
           textAlign: 'center'
         }}
       >
         {/* Status Icon */}
         <div style={{
-          width: '64px',
-          height: '64px',
+          width: '68px',
+          height: '68px',
           borderRadius: '50%',
-          backgroundColor: isPaid ? '#10B98120' : isPending ? '#F59E0B20' : '#EF444420',
-          color: isPaid ? '#10B981' : isPending ? '#F59E0B' : '#EF4444',
+          backgroundColor: isPaid ? 'rgba(16, 185, 129, 0.15)' : isPending ? 'rgba(245, 158, 11, 0.15)' : 'rgba(244, 63, 94, 0.15)',
+          color: isPaid ? '#10B981' : isPending ? '#F59E0B' : '#F43F5E',
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '1.25rem',
-          boxShadow: `0 0 25px ${isPaid ? 'rgba(16, 185, 129, 0.3)' : isPending ? 'rgba(245, 158, 11, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`
+          boxShadow: `0 0 30px ${isPaid ? 'rgba(16, 185, 129, 0.35)' : isPending ? 'rgba(245, 158, 11, 0.35)' : 'rgba(244, 63, 94, 0.35)'}`
         }}>
           {loading || isPolling ? (
             <RefreshCw size={36} className="spin" />
           ) : isPaid ? (
-            <CheckCircle2 size={36} />
+            <CheckCircle2 size={36} strokeWidth={2.5} />
           ) : isPending ? (
-            <Clock size={36} />
+            <Clock size={36} strokeWidth={2.2} />
           ) : (
-            <AlertTriangle size={36} />
+            <AlertTriangle size={36} strokeWidth={2.2} />
           )}
         </div>
 
-        <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#F9FAFB', margin: 0, letterSpacing: '-0.02em' }}>
+        <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
           {isPaid
             ? 'Payment Completed'
             : isPending
@@ -133,7 +135,7 @@ export default function PaymentSuccess() {
             : 'Payment Status'}
         </h1>
 
-        <p style={{ color: '#9CA3AF', fontSize: '0.9rem', marginTop: '0.4rem' }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginTop: '0.4rem', lineHeight: 1.5 }}>
           {isPaid
             ? 'Your transaction has been securely captured and verified by the payment gateway.'
             : isPending
@@ -147,38 +149,38 @@ export default function PaymentSuccess() {
 
         {loading ? (
           <div style={{ padding: '2rem', display: 'flex', justifyContent: 'center' }}>
-            <RefreshCw size={24} className="spin" style={{ color: '#10B981' }} />
+            <RefreshCw size={24} className="spin" style={{ color: 'var(--primary)' }} />
           </div>
         ) : link ? (
           <div style={{
-            backgroundColor: '#1F2937',
-            borderRadius: '12px',
-            border: '1px solid #374151',
+            backgroundColor: 'var(--bg-subtle)',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border-light)',
             padding: '1.25rem',
             margin: '1.75rem 0',
             textAlign: 'left'
           }}>
-            <div style={{ fontSize: '0.75rem', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>
               Invoice Details
             </div>
-            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#F3F4F6', marginTop: '0.25rem' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '0.25rem', wordBreak: 'break-word' }}>
               {link.title}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid #374151' }}>
-              <span style={{ color: '#9CA3AF', fontSize: '0.85rem' }}>Amount:</span>
-              <span style={{ fontWeight: 800, color: isPaid ? '#10B981' : isPending ? '#F59E0B' : '#EF4444', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-light)' }}>
+              <span style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>Amount:</span>
+              <span className="tabular-nums" style={{ fontWeight: 800, color: isPaid ? '#10B981' : isPending ? '#F59E0B' : '#F43F5E', fontFamily: 'var(--font-mono)', fontSize: '1.05rem' }}>
                 {link.currency} {Number(link.amount).toFixed(2)}
               </span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem' }}>
-              <span style={{ color: '#9CA3AF', fontSize: '0.85rem' }}>Status:</span>
+              <span style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>Status:</span>
               <span style={{
                 fontWeight: 700,
-                fontSize: '0.8rem',
+                fontSize: '0.78rem',
                 textTransform: 'uppercase',
-                color: isPaid ? '#10B981' : isPending ? '#F59E0B' : '#EF4444'
+                color: isPaid ? '#10B981' : isPending ? '#F59E0B' : '#F43F5E'
               }}>
                 {link.status}
               </span>
@@ -186,23 +188,23 @@ export default function PaymentSuccess() {
 
             {link.customer?.name && (
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem' }}>
-                <span style={{ color: '#9CA3AF', fontSize: '0.85rem' }}>Payer:</span>
-                <span style={{ color: '#E5E7EB', fontSize: '0.85rem' }}>{link.customer.name}</span>
+                <span style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>Payer:</span>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{link.customer.name}</span>
               </div>
             )}
 
             {(sessionId || cfLinkId) && (
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem' }}>
-                <span style={{ color: '#9CA3AF', fontSize: '0.85rem' }}>Gateway Ref:</span>
-                <span style={{ color: '#9CA3AF', fontSize: '0.78rem', fontFamily: 'monospace' }}>
+                <span style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>Gateway Ref:</span>
+                <span style={{ color: 'var(--text-dim)', fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>
                   {(sessionId || cfLinkId).slice(0, 16)}...
                 </span>
               </div>
             )}
           </div>
         ) : (
-          <div style={{ margin: '1.5rem 0', padding: '1rem', backgroundColor: '#1F2937', borderRadius: '8px' }}>
-            <p style={{ color: '#9CA3AF', fontSize: '0.85rem', margin: 0 }}>
+          <div style={{ margin: '1.5rem 0', padding: '1rem', backgroundColor: 'var(--bg-subtle)', borderRadius: '8px', border: '1px solid var(--border-light)' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>
               Transaction confirmation recorded for reference #{linkId ? linkId.slice(-8) : 'RECEIPT'}.
             </p>
           </div>
@@ -241,12 +243,12 @@ export default function PaymentSuccess() {
         <div style={{
           marginTop: '1.5rem',
           paddingTop: '1rem',
-          borderTop: '1px solid #1F2937',
+          borderTop: '1px solid var(--border-light)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '6px',
-          color: '#6B7280',
+          color: 'var(--text-dim)',
           fontSize: '0.75rem'
         }}>
           <ShieldCheck size={14} style={{ color: '#10B981' }} />
@@ -256,3 +258,4 @@ export default function PaymentSuccess() {
     </div>
   );
 }
+

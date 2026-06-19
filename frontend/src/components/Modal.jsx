@@ -20,13 +20,19 @@ export default function Modal({ isOpen, onClose, title, children }) {
 
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{title}</h3>
+      <div
+        className="modal-card"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          boxShadow: 'var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.08)'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border-light)' }}>
+          <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>{title}</h3>
           <button
             onClick={onClose}
             className="btn btn-ghost"
-            style={{ padding: '0.3rem', borderRadius: '50%' }}
+            style={{ padding: '0.35rem', borderRadius: 'var(--radius-sm)', color: 'var(--text-dim)' }}
             aria-label="Close modal"
           >
             <X size={18} />
@@ -37,3 +43,4 @@ export default function Modal({ isOpen, onClose, title, children }) {
     </div>
   );
 }
+

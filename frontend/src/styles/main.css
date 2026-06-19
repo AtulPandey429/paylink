@@ -1,42 +1,61 @@
-/* PayLink Modern Design System */
+/* PayLink Modern Design System (Linear + Stripe Benchmark) */
 :root {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', Consolas, monospace;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, 'SF Mono', monospace;
 
-  /* Colors */
-  --bg-main: #0B0F17;
-  --bg-card: #131B2E;
-  --bg-card-hover: #18223B;
-  --bg-surface: #1E293B;
-  --bg-subtle: #0F172A;
+  /* Surfaces & Canvas (Deep Obsidian / Zinc Depth) */
+  --bg-main: #070A12;
+  --bg-sidebar: #0B101D;
+  --bg-card: #0E1526;
+  --bg-card-hover: #131C33;
+  --bg-surface: #17223D;
+  --bg-subtle: #0A0F1C;
+  --bg-glass: rgba(11, 16, 29, 0.85);
 
-  --border-light: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(99, 102, 241, 0.6);
+  /* Specular Borders & Highlights */
+  --border-light: rgba(255, 255, 255, 0.07);
+  --border-card: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(99, 102, 241, 0.4);
+  --border-focus: rgba(99, 102, 241, 0.8);
 
+  /* Typography Colors */
   --text-main: #F8FAFC;
+  --text-secondary: #CBD5E1;
   --text-muted: #94A3B8;
   --text-dim: #64748B;
 
+  /* Semantic Brand & Gateway Colors */
   --primary: #6366F1;
   --primary-hover: #4F46E5;
   --primary-light: rgba(99, 102, 241, 0.15);
+  --primary-glow: rgba(99, 102, 241, 0.35);
 
   --success: #10B981;
+  --success-hover: #059669;
   --success-light: rgba(16, 185, 129, 0.15);
+  --success-glow: rgba(16, 185, 129, 0.35);
+
   --warning: #F59E0B;
   --warning-light: rgba(245, 158, 11, 0.15);
-  --danger: #EF4444;
-  --danger-light: rgba(239, 68, 68, 0.15);
+
+  --danger: #F43F5E;
+  --danger-hover: #E11D48;
+  --danger-light: rgba(244, 63, 94, 0.15);
+
   --info: #0EA5E9;
   --info-light: rgba(14, 165, 233, 0.15);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 30px 0 rgba(0, 0, 0, 0.5);
+  /* Elevation Shadows with Inset Specular Highlight */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  --shadow-lg: 0 12px 36px -4px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  --shadow-card-hover: 0 12px 30px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
 }
 
@@ -58,9 +77,11 @@ body {
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+  letter-spacing: -0.012em;
 }
 
 #root {
@@ -69,6 +90,70 @@ body {
   flex-direction: column;
   width: 100%;
   overflow-x: hidden;
+}
+
+/* Custom Sleek Scrollbars (Linear benchmark) */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Tabular figures for financial accuracy */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Shimmer Skeleton Loaders */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s infinite ease-in-out;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Live Ping Status Indicator */
+.status-dot-ping {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot-ping::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  animation: pingRing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  background-color: inherit;
+  opacity: 0.6;
+}
+
+@keyframes pingRing {
+  75%, 100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 img, svg, video, canvas, audio, iframe, embed, object {
@@ -636,7 +721,8 @@ img, svg, video, canvas, audio, iframe, embed, object {
 
 .form-input,
 .form-select,
-.form-textarea {
+.form-textarea,
+.input-field {
   width: 100%;
   padding: 0.75rem 1rem;
   background-color: var(--bg-subtle);
@@ -651,7 +737,8 @@ img, svg, video, canvas, audio, iframe, embed, object {
 
 .form-input:focus,
 .form-select:focus,
-.form-textarea:focus {
+.form-textarea:focus,
+.input-field:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
@@ -1127,3 +1214,10 @@ img, svg, video, canvas, audio, iframe, embed, object {
     padding: 1.25rem 0.85rem;
   }
 }
+
+@media (min-width: 769px) {
+  .nav-breadcrumb-root {
+    display: inline-flex !important;
+  }
+}
+

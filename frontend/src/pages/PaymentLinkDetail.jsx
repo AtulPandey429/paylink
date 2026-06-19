@@ -93,25 +93,47 @@ export default function PaymentLinkDetail() {
 
   if (loading) {
     return (
-      <div className="page-container" style={{ textAlign: 'center', padding: '5rem 0' }}>
-        <RefreshCw size={32} className="spin" style={{ color: 'var(--primary)', marginBottom: '1rem' }} />
-        <p style={{ color: 'var(--text-muted)' }}>Loading payment link details...</p>
+      <div className="page-container">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+          <div className="skeleton" style={{ width: '36px', height: '36px', borderRadius: '8px' }} />
+          <div style={{ flex: 1 }}>
+            <div className="skeleton" style={{ width: '260px', height: '24px', marginBottom: '8px' }} />
+            <div className="skeleton" style={{ width: '180px', height: '14px' }} />
+          </div>
+        </div>
+        <div className="skeleton" style={{ width: '100%', height: '80px', borderRadius: '12px', marginBottom: '2rem' }} />
+        <div className="link-detail-grid">
+          <div className="skeleton" style={{ height: '340px', borderRadius: '16px' }} />
+          <div className="skeleton" style={{ height: '340px', borderRadius: '16px' }} />
+        </div>
       </div>
     );
   }
 
   if (error && !link) {
     return (
-      <div className="page-container" style={{ textAlign: 'center', padding: '5rem 0' }}>
-        <AlertCircle size={36} style={{ color: 'var(--danger)', margin: '0 auto 1rem' }} />
-        <h3 style={{ marginBottom: '0.5rem' }}>Failed to Load Link Details</h3>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', maxWidth: '400px', margin: '0 auto 1.5rem' }}>{error}</p>
+      <div className="page-container" style={{ textAlign: 'center', padding: '5rem 1rem' }}>
+        <div style={{
+          width: '56px',
+          height: '56px',
+          borderRadius: '16px',
+          backgroundColor: 'var(--danger-light)',
+          color: 'var(--danger)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto 1.25rem'
+        }}>
+          <AlertCircle size={28} />
+        </div>
+        <h3 style={{ marginBottom: '0.5rem', fontSize: '1.3rem', fontWeight: 700 }}>Failed to Load Link Details</h3>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '1.75rem', maxWidth: '420px', margin: '0 auto 1.75rem', fontSize: '0.9rem' }}>{error}</p>
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
           <button onClick={fetchLinkDetails} className="btn btn-primary">
-            <RefreshCw size={16} /> Retry
+            <RefreshCw size={15} /> Retry
           </button>
           <button onClick={() => navigate('/links')} className="btn btn-secondary">
-            <ArrowLeft size={16} /> Back to Links
+            <ArrowLeft size={15} /> Back to Links
           </button>
         </div>
       </div>
@@ -120,11 +142,11 @@ export default function PaymentLinkDetail() {
 
   if (!link) {
     return (
-      <div className="page-container" style={{ textAlign: 'center', padding: '5rem 0' }}>
-        <h3 style={{ marginBottom: '1rem' }}>Payment Link Not Found</h3>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>This link does not exist or you do not have permission to access it.</p>
+      <div className="page-container" style={{ textAlign: 'center', padding: '5rem 1rem' }}>
+        <h3 style={{ marginBottom: '1rem', fontSize: '1.3rem', fontWeight: 700 }}>Payment Link Not Found</h3>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '1.75rem' }}>This link does not exist or you do not have permission to access it.</p>
         <button onClick={() => navigate('/links')} className="btn btn-secondary">
-          <ArrowLeft size={16} /> Back to Links
+          <ArrowLeft size={15} /> Back to Links
         </button>
       </div>
     );
@@ -133,33 +155,40 @@ export default function PaymentLinkDetail() {
   return (
     <div className="page-container">
       {/* Back button & Action Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <button onClick={() => navigate('/links')} className="btn btn-ghost" style={{ padding: '0.4rem' }}>
-            <ArrowLeft size={20} />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
+          <button
+            onClick={() => navigate('/links')}
+            className="btn btn-secondary"
+            style={{ padding: '0.5rem', borderRadius: 'var(--radius-md)' }}
+            aria-label="Back to links"
+          >
+            <ArrowLeft size={18} />
           </button>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, wordBreak: 'break-word' }}>{link.title}</h2>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, wordBreak: 'break-word', color: 'var(--text-main)', letterSpacing: '-0.02em', margin: 0 }}>
+                {link.title}
+              </h2>
               <StatusBadge status={link.status} />
               <GatewayBadge gateway={link.gateway} isDemo={link.isDemo} />
             </div>
-            <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)', marginTop: '0.2rem', wordBreak: 'break-all' }}>
+            <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)', marginTop: '0.25rem', wordBreak: 'break-all' }}>
               Gateway Link ID: {link.gatewayLinkId}
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
           <button onClick={handleSync} className="btn btn-secondary" disabled={syncing} title="Fetch latest status directly from gateway">
             <RefreshCw size={14} className={syncing ? 'spin' : ''} />
-            {syncing ? 'Syncing...' : 'Sync Status'}
+            <span>{syncing ? 'Reconciling...' : 'Sync Status'}</span>
           </button>
 
           {link.status === 'pending' && (
             <button onClick={() => setCancelModalOpen(true)} className="btn btn-danger" title="Cancel this link on the gateway">
               <XCircle size={14} />
-              Cancel Link
+              <span>Cancel Link</span>
             </button>
           )}
         </div>
@@ -168,7 +197,7 @@ export default function PaymentLinkDetail() {
       {/* Shareable Link Banner */}
       <div
         style={{
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15))',
+          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%)',
           border: '1px solid rgba(99, 102, 241, 0.3)',
           borderRadius: 'var(--radius-lg)',
           padding: '1.25rem 1.5rem',
@@ -177,14 +206,15 @@ export default function PaymentLinkDetail() {
           justifyContent: 'space-between',
           gap: '1rem',
           flexWrap: 'wrap',
-          marginBottom: '2rem'
+          marginBottom: '2rem',
+          boxShadow: '0 4px 20px -2px rgba(99, 102, 241, 0.15)'
         }}
       >
         <div style={{ flex: 1, minWidth: '240px' }}>
-          <div style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#A5B4FC', fontWeight: 700, marginBottom: '0.25rem' }}>
-            Shareable Checkout URL
+          <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#A5B4FC', fontWeight: 700, marginBottom: '0.35rem' }}>
+            Live Shareable Checkout URL
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', color: 'white', wordBreak: 'break-all' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'white', wordBreak: 'break-all', backgroundColor: 'rgba(0, 0, 0, 0.3)', padding: '0.4rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-light)' }}>
             {link.gatewayPaymentUrl}
           </div>
         </div>
@@ -192,7 +222,7 @@ export default function PaymentLinkDetail() {
         <div style={{ display: 'flex', gap: '0.65rem' }}>
           <button onClick={handleCopy} className="btn btn-primary" style={{ padding: '0.55rem 1rem', fontSize: '0.85rem' }}>
             {copied ? <Check size={14} /> : <Copy size={14} />}
-            {copied ? 'Copied!' : 'Copy Link'}
+            <span>{copied ? 'Copied to Clipboard!' : 'Copy Link'}</span>
           </button>
 
           <a
@@ -203,10 +233,11 @@ export default function PaymentLinkDetail() {
             style={{ padding: '0.55rem 1rem', fontSize: '0.85rem' }}
           >
             <ExternalLink size={14} />
-            Open Link
+            <span>Open Checkout</span>
           </a>
         </div>
       </div>
+
 
       <div className="link-detail-grid">
         {/* Left Column: Link Metadata & Payment Details */}

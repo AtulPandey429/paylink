@@ -148,16 +148,25 @@ export default function PaymentLinksList() {
       {/* Filter and Search Bar */}
       <div className="card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
         <form onSubmit={handleSearchSubmit} className="filters-form">
-          <div className="filter-item-search" style={{ position: 'relative' }}>
+          <div className="filter-item-search">
             <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
             <input
               type="text"
               className="form-input"
-              style={{ paddingLeft: '36px' }}
+              style={{ paddingLeft: '36px', paddingRight: search ? '36px' : '12px' }}
               placeholder="Search by title, customer, or gateway ID..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
+            {search && (
+              <button
+                type="button"
+                onClick={() => { setSearch(''); setPage(1); }}
+                style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', padding: '2px' }}
+              >
+                <XCircle size={15} />
+              </button>
+            )}
           </div>
 
           <div className="filter-item-select">
@@ -216,15 +225,26 @@ export default function PaymentLinksList() {
             </thead>
             <tbody>
               {loading ? (
-                <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
-                    <RefreshCw size={24} className="spin" style={{ margin: '0 auto 0.5rem', color: 'var(--primary)' }} />
-                    Loading payment links...
-                  </td>
-                </tr>
+                [1, 2, 3, 4, 5].map((i) => (
+                  <tr key={i}>
+                    <td>
+                      <div className="skeleton" style={{ width: '180px', height: '16px', marginBottom: '6px' }} />
+                      <div className="skeleton" style={{ width: '100px', height: '12px' }} />
+                    </td>
+                    <td><div className="skeleton" style={{ width: '70px', height: '18px' }} /></td>
+                    <td><div className="skeleton" style={{ width: '80px', height: '22px', borderRadius: '4px' }} /></td>
+                    <td><div className="skeleton" style={{ width: '75px', height: '22px', borderRadius: '12px' }} /></td>
+                    <td>
+                      <div className="skeleton" style={{ width: '110px', height: '14px', marginBottom: '4px' }} />
+                      <div className="skeleton" style={{ width: '80px', height: '12px' }} />
+                    </td>
+                    <td><div className="skeleton" style={{ width: '85px', height: '14px' }} /></td>
+                    <td style={{ textAlign: 'right' }}><div className="skeleton" style={{ width: '110px', height: '28px', marginLeft: 'auto' }} /></td>
+                  </tr>
+                ))
               ) : error ? (
                 <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', padding: '3rem', color: 'var(--danger)' }}>
+                  <td colSpan="7" style={{ textAlign: 'center', padding: '3.5rem 1rem', color: 'var(--danger)' }}>
                     <AlertCircle size={28} style={{ margin: '0 auto 0.5rem', display: 'block' }} />
                     <div style={{ fontWeight: 600, marginBottom: '0.25rem' }}>Failed to load payment links</div>
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</div>
@@ -235,102 +255,135 @@ export default function PaymentLinksList() {
                 </tr>
               ) : links.length === 0 ? (
                 <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-dim)' }}>
-                    No payment links matched your filter criteria.
+                  <td colSpan="7" style={{ textAlign: 'center', padding: '4rem 1rem', color: 'var(--text-dim)' }}>
+                    <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
+                      No payment links found
+                    </div>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)', marginBottom: '1.25rem' }}>
+                      No links matched your active filters or search terms.
+                    </p>
+                    <Link to="/links/create" className="btn btn-primary" style={{ display: 'inline-flex', fontSize: '0.82rem' }}>
+                      <Plus size={14} /> Create Payment Link
+                    </Link>
                   </td>
                 </tr>
               ) : (
-                links.map((link) => (
-                  <tr key={link._id}>
-                    <td>
-                      <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>
-                        <Link to={`/links/${link._id}`} style={{ color: 'inherit', textDecoration: 'none' }} className="hover-underline">
-                          {link.title}
-                        </Link>
-                      </div>
-                      <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)' }}>
-                        ID: {link.gatewayLinkId}
-                      </div>
-                    </td>
-
-                    <td>
-                      <span style={{ fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
-                        {link.currency} {Number(link.amount).toFixed(2)}
-                      </span>
-                    </td>
-
-                    <td>
-                      <GatewayBadge gateway={link.gateway} isDemo={link.isDemo} />
-                    </td>
-
-                    <td>
-                      <StatusBadge status={link.status} />
-                    </td>
-
-                    <td>
-                      <div style={{ fontSize: '0.85rem' }}>{link.customer?.name || '—'}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>{link.customer?.email || '—'}</div>
-                    </td>
-
-                    <td style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
-                      {new Date(link.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </td>
-
-                    <td style={{ textAlign: 'right' }}>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <button
-                          onClick={() => handleCopyLink(link._id, link.gatewayPaymentUrl)}
-                          className="btn btn-secondary"
-                          style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
-                          title="Copy Payment URL"
-                        >
-                          {copiedId === link._id ? <Check size={13} color="#10B981" /> : <Copy size={13} />}
-                        </button>
-
-                        <a
-                          href={link.gatewayPaymentUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-secondary"
-                          style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
-                          title="Open Checkout Link in New Tab"
-                        >
-                          <ExternalLink size={13} />
-                        </a>
-
-                        <button
-                          onClick={() => handleSyncStatus(link._id)}
-                          disabled={syncingId === link._id}
-                          className="btn btn-secondary"
-                          style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
-                          title="Reconcile with Gateway"
-                          aria-label={`Sync status for ${link.title}`}
-                        >
-                          <RefreshCw size={13} className={syncingId === link._id ? 'spin' : ''} />
-                        </button>
-
-                        {link.status === 'pending' && (
-                          <button
-                            onClick={() => openCancelModal(link)}
-                            className="btn btn-danger"
-                            style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
-                            title="Cancel Payment Link"
+                links.map((link) => {
+                  const customerInitials = (link.customer?.name ? link.customer.name.charAt(0) : 'G').toUpperCase();
+                  return (
+                    <tr key={link._id}>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <div
+                            style={{
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '50%',
+                              backgroundColor: 'var(--bg-surface)',
+                              border: '1px solid var(--border-light)',
+                              color: '#A5B4FC',
+                              fontWeight: 700,
+                              fontSize: '0.8rem',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0
+                            }}
                           >
-                            <XCircle size={13} />
-                          </button>
-                        )}
+                            {customerInitials}
+                          </div>
+                          <div style={{ minWidth: 0 }}>
+                            <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>
+                              <Link to={`/links/${link._id}`} style={{ color: 'inherit', textDecoration: 'none' }} className="hover-underline">
+                                {link.title}
+                              </Link>
+                            </div>
+                            <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)' }}>
+                              ID: {link.gatewayLinkId}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
 
-                        <Link
-                          to={`/links/${link._id}`}
-                          className="btn btn-secondary"
-                          style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}
-                        >
-                          Details
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                      <td>
+                        <span className="tabular-nums" style={{ fontWeight: 700, fontFamily: 'var(--font-mono)', fontSize: '0.92rem', color: 'var(--text-main)' }}>
+                          {link.currency} {Number(link.amount).toFixed(2)}
+                        </span>
+                      </td>
+
+                      <td>
+                        <GatewayBadge gateway={link.gateway} isDemo={link.isDemo} />
+                      </td>
+
+                      <td>
+                        <StatusBadge status={link.status} />
+                      </td>
+
+                      <td>
+                        <div style={{ fontSize: '0.85rem', color: 'var(--text-main)' }}>{link.customer?.name || '—'}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>{link.customer?.email || '—'}</div>
+                      </td>
+
+                      <td style={{ fontSize: '0.8rem', color: 'var(--text-dim)', whiteSpace: 'nowrap' }}>
+                        {new Date(link.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </td>
+
+                      <td style={{ textAlign: 'right' }}>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <button
+                            onClick={() => handleCopyLink(link._id, link.gatewayPaymentUrl)}
+                            className="btn btn-secondary"
+                            style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
+                            title="Copy Payment URL"
+                          >
+                            {copiedId === link._id ? <Check size={13} color="#10B981" /> : <Copy size={13} />}
+                          </button>
+
+                          <a
+                            href={link.gatewayPaymentUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-secondary"
+                            style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
+                            title="Open Checkout Link in New Tab"
+                          >
+                            <ExternalLink size={13} />
+                          </a>
+
+                          <button
+                            onClick={() => handleSyncStatus(link._id)}
+                            disabled={syncingId === link._id}
+                            className="btn btn-secondary"
+                            style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
+                            title="Reconcile with Gateway"
+                            aria-label={`Sync status for ${link.title}`}
+                          >
+                            <RefreshCw size={13} className={syncingId === link._id ? 'spin' : ''} />
+                          </button>
+
+                          {link.status === 'pending' && (
+                            <button
+                              onClick={() => openCancelModal(link)}
+                              className="btn btn-danger"
+                              style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
+                              title="Cancel Payment Link"
+                            >
+                              <XCircle size={13} />
+                            </button>
+                          )}
+
+                          <Link
+                            to={`/links/${link._id}`}
+                            className="btn btn-secondary"
+                            style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}
+                          >
+                            Details
+                          </Link>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -339,7 +392,7 @@ export default function PaymentLinksList() {
         {/* Pagination Bar */}
         <div className="pagination-bar">
           <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>
-            Showing {links.length} of {total} payment links
+            Showing <span className="tabular-nums" style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{links.length}</span> of <span className="tabular-nums" style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{total}</span> links
           </span>
 
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -351,7 +404,7 @@ export default function PaymentLinksList() {
             >
               Previous
             </button>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0 0.5rem' }}>
+            <span className="tabular-nums" style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '0 0.5rem', background: 'var(--bg-subtle)', padding: '3px 10px', borderRadius: '4px', border: '1px solid var(--border-light)' }}>
               Page {page} of {totalPages}
             </span>
             <button
@@ -365,6 +418,7 @@ export default function PaymentLinksList() {
           </div>
         </div>
       </div>
+
 
       {/* Cancel Confirmation Dialog */}
       <ConfirmDialog

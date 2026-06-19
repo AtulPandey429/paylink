@@ -49,7 +49,7 @@ export default function Register() {
 
   return (
     <div className="auth-page-container">
-      <div className="auth-card">
+      <div className="auth-card" style={{ boxShadow: 'var(--shadow-card), 0 25px 60px -15px rgba(0, 0, 0, 0.8)' }}>
         {/* Brand Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
@@ -59,28 +59,28 @@ export default function Register() {
             width: '48px',
             height: '48px',
             borderRadius: '12px',
-            backgroundColor: '#4F46E5',
+            background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
             color: '#FFFFFF',
             marginBottom: '1rem',
-            boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)'
+            boxShadow: '0 0 25px rgba(99, 102, 241, 0.45)'
           }}>
-            <Link2 size={26} />
+            <Link2 size={26} strokeWidth={2.5} />
           </div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#F9FAFB', margin: 0, letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
             Create Account
           </h1>
-          <p style={{ color: '#9CA3AF', fontSize: '0.875rem', marginTop: '0.35rem' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginTop: '0.35rem' }}>
             Get started with PayLink Multi-Gateway Platform
           </p>
         </div>
 
         {error && (
           <div style={{
-            backgroundColor: '#7F1D1D30',
-            border: '1px solid #DC2626',
+            backgroundColor: 'var(--danger-light)',
+            border: '1px solid rgba(244, 63, 94, 0.4)',
             color: '#FCA5A5',
             padding: '0.75rem 1rem',
-            borderRadius: '8px',
+            borderRadius: 'var(--radius-md)',
             fontSize: '0.82rem',
             marginBottom: '1.25rem',
             display: 'flex',
@@ -95,54 +95,54 @@ export default function Register() {
         {/* Register Form */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#E5E7EB', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Full Name / Business Name
             </label>
             <div style={{ position: 'relative' }}>
-              <User size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#6B7280' }} />
+              <User size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Acme Payments Inc."
-                className="input-field"
+                className="form-input"
                 style={{ paddingLeft: '2.5rem' }}
               />
             </div>
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#E5E7EB', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Email Address
             </label>
             <div style={{ position: 'relative' }}>
-              <Mail size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#6B7280' }} />
+              <Mail size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@acme.com"
-                className="input-field"
+                className="form-input"
                 style={{ paddingLeft: '2.5rem' }}
               />
             </div>
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#E5E7EB', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
               Password (min. 8 characters)
             </label>
             <div style={{ position: 'relative' }}>
-              <Lock size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#6B7280' }} />
+              <Lock size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="input-field"
+                className="form-input"
                 style={{ paddingLeft: '2.5rem' }}
               />
             </div>
@@ -156,13 +156,14 @@ export default function Register() {
           >
             {loading ? 'Creating Account...' : (
               <>
-                Register & Start <ArrowRight size={16} />
+                <span>Register & Start</span>
+                <ArrowRight size={16} />
               </>
             )}
           </button>
         </form>
 
-        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: '#9CA3AF' }}>
+        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
           Already have an account?{' '}
           <Link to="/login" style={{ color: '#818CF8', fontWeight: 600, textDecoration: 'none' }}>
             Sign in
@@ -173,12 +174,12 @@ export default function Register() {
         <div style={{
           marginTop: '2rem',
           paddingTop: '1rem',
-          borderTop: '1px solid #1F2937',
+          borderTop: '1px solid var(--border-light)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '6px',
-          color: '#6B7280',
+          color: 'var(--text-dim)',
           fontSize: '0.75rem'
         }}>
           <ShieldCheck size={14} style={{ color: '#10B981' }} />
@@ -188,3 +189,4 @@ export default function Register() {
     </div>
   );
 }
+
