@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, CheckCircle2, XCircle, Sparkles, CreditCard, ArrowLeft, RefreshCw, Lock, Smartphone, ExternalLink, AlertCircle } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, XCircle, Sparkles, ArrowLeft, RefreshCw, Lock, Smartphone, ExternalLink, AlertCircle } from 'lucide-react';
 import { fetchPublicPaymentLink, simulatePayment } from '../api/paymentLinks';
 import { getErrorMessage } from '../api/client';
 
@@ -105,9 +105,17 @@ export default function PublicPayPreview() {
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-light)', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'linear-gradient(135deg, #6366F1, #8B5CF6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', boxShadow: '0 0 14px rgba(99, 102, 241, 0.4)' }}>
-              <CreditCard size={18} strokeWidth={2.2} />
-            </div>
+            <img
+              src="/paylink-icon.webp"
+              alt="PayLink"
+              style={{
+                width: '34px',
+                height: '34px',
+                borderRadius: '9px',
+                boxShadow: '0 0 14px rgba(99, 102, 241, 0.4)',
+                objectFit: 'cover'
+              }}
+            />
             <span style={{ fontWeight: 800, fontSize: '1.15rem', color: 'var(--text-main)', letterSpacing: '-0.02em' }}>PayLink Checkout</span>
           </div>
 

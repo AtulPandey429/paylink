@@ -11,9 +11,18 @@ export default function Sidebar({ isOpen, onClose }) {
       {/* Brand Header */}
       <div className="sidebar-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1, minWidth: 0 }}>
-          <div className="brand-icon">
-            <Link2 size={20} strokeWidth={2.5} />
-          </div>
+          <img
+            src="/paylink-icon.webp"
+            alt="PayLink"
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '10px',
+              boxShadow: '0 0 14px rgba(99, 102, 241, 0.4)',
+              objectFit: 'cover',
+              flexShrink: 0
+            }}
+          />
           <div style={{ minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <span className="brand-title">PayLink</span>

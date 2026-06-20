@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Link2, Lock, Mail, User, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Lock, Mail, User, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
@@ -52,20 +52,18 @@ export default function Register() {
       <div className="auth-card" style={{ boxShadow: 'var(--shadow-card), 0 25px 60px -15px rgba(0, 0, 0, 0.8)' }}>
         {/* Brand Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '48px',
-            height: '48px',
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, #6366F1, #8B5CF6)',
-            color: '#FFFFFF',
-            marginBottom: '1rem',
-            boxShadow: '0 0 25px rgba(99, 102, 241, 0.45)'
-          }}>
-            <Link2 size={26} strokeWidth={2.5} />
-          </div>
+          <img
+            src="/paylink-icon.webp"
+            alt="PayLink Logo"
+            style={{
+              width: '56px',
+              height: '56px',
+              borderRadius: '14px',
+              marginBottom: '1rem',
+              boxShadow: '0 0 25px rgba(99, 102, 241, 0.45)',
+              objectFit: 'cover'
+            }}
+          />
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
             Create Account
           </h1>
